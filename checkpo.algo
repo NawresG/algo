@@ -1,0 +1,101 @@
+//algorithme 1
+ALGORITHM chechkp
+VAR
+ set1 : ARRAY_OF INTEGER[5];
+ set2:ARRAY_OF INTEGER[4];
+
+    i,j:INTEGER;
+   sum:INTEGER;
+   isdif:BOOLEAN;
+BEGIN
+ write("donner la valeur de set1")
+ read(set1);
+   write("donner la valeur de set2")
+ read(set2);
+    sum:=0;
+    FOR (i=0;i<set1.length;i++)
+        isdif:=false;
+        FOR (j=0;j<set2.length;j++)
+        if (set1[i]=set2[j])
+        isdif:=true;
+        end_if
+        END_FOR
+        if(isdif:=false)
+        sum= sum+set1[i];
+        end_if
+    END_FOR
+      FOR (j=0;j<set2.length;j++)
+        isdif:=false;
+        FOR (i=0;i<set1.length;i++)
+        if (set2[j]=set1[i])
+        isdif:=true;
+        end_if
+        END_FOR
+        if(isdif:=false)
+        sum= sum+set2[j];
+        end_if
+    END_FOR
+    write("Sum of overlapping elements:",sum)
+
+END
+//algorithm 2
+ALGORITHM sumdis
+
+VAR
+    
+    set1 : ARRAY_OF INTEGER[5];
+    set2:ARRAY_OF INTEGER[4];
+
+    i,j:INTEGER;
+   sumdis:INTEGER:=0;
+   
+BEGIN
+ set1:={12,2,5,10,7}
+ set2:={5,8,9,12}
+    FOR i FROM 0 TO set1.length STEP 1  DO
+      FOR j FROM 0 TO set2.length STEP 1  DO
+      IF (set1[i]=set2[j]) THEN
+          sumdis:=sumdis+set1[i]
+      END_IF
+      END_FOR
+    END_FOR
+    FOR j FROM 0 TO set2.length STEP 1  DO
+      FOR i FROM 0 TO set1.length STEP 1  DO
+      IF (set2[j]=set1[i]) THEN
+          sumdis:=sumdis+set2[j]
+      END_IF
+      END_FOR
+    END_FOR
+       write("Sum of overlapping elements:",sumdis) 
+
+END
+//algorithm htable
+ALGORITHM htable
+VAR
+   htab:HASH_TABLE<integer,integer>
+    set1 : ARRAY_OF INTEGER[5];
+    set2:ARRAY_OF INTEGER[4];
+
+    i,j:INTEGER;
+   sumht:INTEGER:=0;
+   
+BEGIN
+ set1:={12,2,5,10,7}
+ set2:={5,8,9,12}
+    FOR (i<0;i<set1.length;i++)
+    htab.insert(set1[i],1);
+    END_FOR
+    FOR (j<0;j<set2.length;j++)
+  IF (htab.lookup(set2[j],2)) THEN
+      htab.insert(set2[j],2)
+  ELSE
+      htab.inset(set2[j],1)
+  END_IF
+    END_FOR
+    FOR j FROM 0 TO set2.length STEP 1  DO
+     IF (htab.get(set2[j])=2) THEN
+         sumht:=sumht+ set2[j]*2
+     END_IF
+    END_FOR
+ write("Sum of overlapping elements:",sumht) ;
+END
